@@ -39,6 +39,11 @@ describe('Lens Proxy', () => {
   it('set', () => {
     const childName = lens<Root>().users[0].child.name
     const updated = childName('Updated')(root)
+    expect(root).not.toBe(updated)
+    expect(root.users).not.toBe(updated.users)
+    expect(root.users[0]).not.toBe(updated.users[0])
+    expect(root.users[0].child).not.toBe(updated.users[0].child)
+    expect(root.users[1]).toBe(updated.users[1])
     expect(updated).toEqual({
       ...root,
       users: [
